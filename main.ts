@@ -79,11 +79,14 @@ function getCheapestCostAndSummaryRecipe(recipe: Recipe) {
 
   for (const item of recipe.lineItems) {
     const products = GetProductsForIngredient(item.ingredient);
+    // Get the product with the cheapest base unit cost
     const cheapestProduct = getCheapestProduct(products);
 
+    // Calculate the minimum cost for the item
     summary.cheapestCost +=
       item.unitOfMeasure.uomAmount * cheapestProduct.cheapestCost;
 
+    // Its nutritional information summary in cheapest configuration.
     for (const nutrientFact of cheapestProduct.nutrientFacts) {
       const { nutrientName } = nutrientFact;
       const nutrientSummary = summary.nutrientsAtCheapestCost[nutrientName];
